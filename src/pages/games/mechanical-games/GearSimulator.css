@@ -1,0 +1,246 @@
+.gear-simulator {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0A0F1F 0%, #1A1F3F 100%);
+  padding: 1rem 1.5rem;
+  padding-top: 80px;
+  color: white;
+}
+
+.gear-simulator .game-header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-top: 0.5rem;
+}
+
+.gear-simulator .game-header h1 {
+  font-size: 2.25rem;
+  margin: 0;
+  text-align: center;
+  background: linear-gradient(135deg, #FF6B9C 0%, #4D61FC 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gear-simulator .back-button {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+  text-decoration: none;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.gear-simulator .back-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-50%) translateX(-2px);
+}
+
+.gear-simulator .game-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.gear-simulator .game-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.gear-simulator .control-section {
+  background: rgba(13, 17, 31, 0.5);
+  padding: 1.25rem;
+  border-radius: 12px;
+}
+
+.gear-simulator .control-section h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.gear-simulator .control-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.gear-simulator .control-row:last-child {
+  border-bottom: none;
+}
+
+.gear-simulator .control-row span {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.gear-simulator .control-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.gear-simulator .control-buttons button {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.gear-simulator .control-buttons button:hover:not(:disabled) {
+  background: rgba(77, 97, 252, 0.5);
+}
+
+.gear-simulator .control-buttons button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.gear-simulator .stats-section {
+  background: rgba(13, 17, 31, 0.5);
+  padding: 1.25rem;
+  border-radius: 12px;
+}
+
+.gear-simulator .stats-section h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.gear-simulator .stat-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.gear-simulator .stat-row:last-child {
+  border-bottom: none;
+}
+
+.gear-simulator .stat-row span:first-child {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.gear-simulator .stat-row span:last-child {
+  color: #00D4FF;
+  font-weight: 600;
+}
+
+.gear-simulator .action-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.gear-simulator .action-button.primary {
+  background: linear-gradient(135deg, #22C55E 0%, #00D4FF 100%);
+  color: white;
+}
+
+.gear-simulator .action-button.secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.gear-simulator .action-button:hover {
+  transform: translateY(-2px);
+}
+
+.gear-simulator .game-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.gear-simulator .gear-canvas {
+  background: rgba(10, 15, 31, 1);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.gear-simulator .info-panel {
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.gear-simulator .info-panel h4 {
+  color: #00D4FF;
+  margin: 0 0 1rem 0;
+}
+
+.gear-simulator .info-panel p {
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 0.75rem 0;
+  line-height: 1.5;
+}
+
+.gear-simulator .info-panel p:last-child {
+  margin-bottom: 0;
+}
+
+.gear-simulator .info-panel strong {
+  color: #22C55E;
+}
+
+@media (max-width: 900px) {
+  .gear-simulator .game-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .gear-simulator .game-sidebar {
+    order: 2;
+  }
+  
+  .gear-simulator .gear-canvas {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    aspect-ratio: 6/5;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .gear-simulator {
+    padding: 1rem;
+    padding-top: 70px;
+  }
+  
+  .gear-simulator .game-header h1 {
+    font-size: 1.5rem;
+  }
+}

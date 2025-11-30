@@ -1,0 +1,236 @@
+.reaction-simulator {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0A0F1F 0%, #1A1F3F 100%);
+  padding: 1rem 1.5rem;
+  padding-top: 80px;
+  color: white;
+}
+
+.reaction-simulator .game-header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-top: 0.5rem;
+}
+
+.reaction-simulator .game-header h1 {
+  font-size: 2.25rem;
+  margin: 0;
+  text-align: center;
+  background: linear-gradient(135deg, #FF6B9C 0%, #FFA500 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.reaction-simulator .back-button {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+  text-decoration: none;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.reaction-simulator .back-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-50%) translateX(-2px);
+}
+
+.reaction-simulator .game-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.reaction-simulator .game-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.reaction-simulator .reaction-list {
+  background: rgba(13, 17, 31, 0.5);
+  padding: 1.25rem;
+  border-radius: 12px;
+}
+
+.reaction-simulator .reaction-list h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.reaction-simulator .reaction-item {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.reaction-simulator .reaction-item:last-child {
+  margin-bottom: 0;
+}
+
+.reaction-simulator .reaction-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.reaction-simulator .reaction-item.active {
+  border-color: var(--reaction-color);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.reaction-simulator .reaction-type {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--reaction-color, #4D61FC);
+  letter-spacing: 0.05em;
+}
+
+.reaction-simulator .reaction-name {
+  font-size: 0.95rem;
+  color: white;
+}
+
+.reaction-simulator .control-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.reaction-simulator .action-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.reaction-simulator .action-button.primary {
+  background: linear-gradient(135deg, #FF6B9C 0%, #FFA500 100%);
+  color: white;
+}
+
+.reaction-simulator .action-button.primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.reaction-simulator .action-button.secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.reaction-simulator .action-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.reaction-simulator .game-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.reaction-simulator .reaction-canvas {
+  background: rgba(10, 15, 31, 1);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.reaction-simulator .reaction-info {
+  background: rgba(13, 17, 31, 0.6);
+  padding: 1.5rem;
+  border-radius: 12px;
+}
+
+.reaction-simulator .reaction-info h3 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1.25rem;
+  color: #00D4FF;
+}
+
+.reaction-simulator .equation-display {
+  font-size: 1.1rem;
+  font-family: 'Courier New', monospace;
+  color: #22C55E;
+  margin: 0 0 1rem 0;
+  padding: 0.75rem;
+  background: rgba(34, 197, 94, 0.1);
+  border-radius: 8px;
+}
+
+.reaction-simulator .description {
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 1rem 0;
+  line-height: 1.5;
+}
+
+.reaction-simulator .reaction-details {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.reaction-simulator .detail-tag {
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+@media (max-width: 900px) {
+  .reaction-simulator .game-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .reaction-simulator .game-sidebar {
+    order: 2;
+  }
+  
+  .reaction-simulator .reaction-canvas {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    aspect-ratio: 4/3;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .reaction-simulator {
+    padding: 1rem;
+    padding-top: 70px;
+  }
+  
+  .reaction-simulator .game-header h1 {
+    font-size: 1.5rem;
+  }
+}

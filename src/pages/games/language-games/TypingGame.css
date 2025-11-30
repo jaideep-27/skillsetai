@@ -1,0 +1,307 @@
+.typing-game {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0A0F1F 0%, #1A1F3F 100%);
+  padding: 1rem 1.5rem;
+  padding-top: 80px;
+  color: white;
+}
+
+.typing-game .game-header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-top: 0.5rem;
+}
+
+.typing-game .game-header h1 {
+  font-size: 2.25rem;
+  margin: 0;
+  text-align: center;
+  background: linear-gradient(135deg, #22C55E 0%, #00D4FF 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.typing-game .back-button {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+  text-decoration: none;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.typing-game .back-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-50%) translateX(-2px);
+}
+
+.typing-game .game-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 2rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.typing-game .game-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.typing-game .info-section {
+  background: rgba(13, 17, 31, 0.5);
+  padding: 1.5rem;
+  border-radius: 12px;
+}
+
+.typing-game .info-section h3 {
+  color: #22C55E;
+  margin: 0 0 0.75rem 0;
+}
+
+.typing-game .info-section p {
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.typing-game .stats-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.typing-game .stat-item {
+  background: rgba(13, 17, 31, 0.5);
+  padding: 1rem;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.typing-game .stat-item label {
+  display: block;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+  margin-bottom: 0.25rem;
+}
+
+.typing-game .stat-item span {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #22C55E;
+}
+
+.typing-game .stat-item span.wpm {
+  color: #00D4FF;
+}
+
+.typing-game .stat-item span.high {
+  color: #22C55E;
+}
+
+.typing-game .stat-item span.medium {
+  color: #F59E0B;
+}
+
+.typing-game .stat-item span.low {
+  color: #EF4444;
+}
+
+.typing-game .stat-item span.error {
+  color: #EF4444;
+}
+
+.typing-game .action-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.typing-game .action-button.primary {
+  background: linear-gradient(135deg, #22C55E 0%, #00D4FF 100%);
+  color: white;
+}
+
+.typing-game .action-button.secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.typing-game .action-button:hover {
+  transform: translateY(-2px);
+}
+
+.typing-game .game-main {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.typing-game .typing-area {
+  background: rgba(13, 17, 31, 0.6);
+  border-radius: 16px;
+  padding: 2rem;
+  width: 100%;
+}
+
+.typing-game .text-display {
+  font-size: 1.5rem;
+  line-height: 2;
+  margin-bottom: 2rem;
+  font-family: 'Monaco', 'Consolas', monospace;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 1.5rem;
+  border-radius: 12px;
+}
+
+.typing-game .char {
+  transition: color 0.1s ease;
+}
+
+.typing-game .char.pending {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.typing-game .char.correct {
+  color: #22C55E;
+}
+
+.typing-game .char.incorrect {
+  color: #EF4444;
+  background: rgba(239, 68, 68, 0.2);
+  border-radius: 2px;
+}
+
+.typing-game .typing-input {
+  width: 100%;
+  min-height: 100px;
+  padding: 1rem;
+  font-size: 1.25rem;
+  font-family: 'Monaco', 'Consolas', monospace;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: white;
+  resize: none;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.typing-game .typing-input:focus {
+  border-color: #22C55E;
+}
+
+.typing-game .typing-input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.typing-game .progress-bar {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  margin-top: 1rem;
+  overflow: hidden;
+}
+
+.typing-game .progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #22C55E 0%, #00D4FF 100%);
+  border-radius: 3px;
+  transition: width 0.2s ease;
+}
+
+.typing-game .results-card {
+  background: rgba(13, 17, 31, 0.6);
+  border-radius: 16px;
+  padding: 3rem;
+  text-align: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+.typing-game .results-card h2 {
+  font-size: 2rem;
+  margin: 0 0 2rem 0;
+  color: #22C55E;
+}
+
+.typing-game .final-stats {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+.typing-game .big-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.typing-game .big-stat .value {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #00D4FF;
+}
+
+.typing-game .big-stat .label {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.typing-game .result-message {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 900px) {
+  .typing-game .game-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .typing-game .game-sidebar {
+    order: 2;
+  }
+  
+  .typing-game .game-main {
+    order: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .typing-game {
+    padding: 1rem;
+    padding-top: 70px;
+  }
+  
+  .typing-game .text-display {
+    font-size: 1.1rem;
+  }
+  
+  .typing-game .typing-input {
+    font-size: 1rem;
+  }
+}

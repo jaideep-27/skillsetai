@@ -1,0 +1,251 @@
+.physics-simulator {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0A0F1F 0%, #1A1F3F 100%);
+  padding: 1rem 1.5rem;
+  padding-top: 80px;
+  color: white;
+}
+
+.physics-simulator .game-header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-top: 0.5rem;
+}
+
+.physics-simulator .game-header h1 {
+  font-size: 2.25rem;
+  margin: 0;
+  text-align: center;
+  background: linear-gradient(135deg, #22C55E 0%, #00D4FF 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.physics-simulator .back-button {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+  text-decoration: none;
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.physics-simulator .back-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-50%) translateX(-2px);
+}
+
+.physics-simulator .game-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.physics-simulator .game-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.physics-simulator .simulation-select {
+  background: rgba(13, 17, 31, 0.5);
+  padding: 1.5rem;
+  border-radius: 12px;
+}
+
+.physics-simulator .simulation-select label {
+  display: block;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.physics-simulator .simulation-select select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.physics-simulator .simulation-select select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.physics-simulator .params-section {
+  background: rgba(13, 17, 31, 0.5);
+  padding: 1.5rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.physics-simulator .param-item label {
+  display: block;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.physics-simulator .param-item input[type="range"] {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.physics-simulator .param-item input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(135deg, #22C55E 0%, #00D4FF 100%);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.physics-simulator .param-item input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.physics-simulator .param-item input[type="range"]:disabled::-webkit-slider-thumb {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.physics-simulator .stats-display {
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.2);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-top: 0.5rem;
+}
+
+.physics-simulator .stat-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.physics-simulator .stat-row:last-child {
+  border-bottom: none;
+}
+
+.physics-simulator .stat-row span:first-child {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.physics-simulator .stat-row span:last-child {
+  color: #00D4FF;
+  font-weight: 600;
+}
+
+.physics-simulator .control-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.physics-simulator .action-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.physics-simulator .action-button.primary {
+  background: linear-gradient(135deg, #22C55E 0%, #00D4FF 100%);
+  color: white;
+}
+
+.physics-simulator .action-button.secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.physics-simulator .action-button:hover {
+  transform: translateY(-2px);
+}
+
+.physics-simulator .game-main {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.physics-simulator .simulation-canvas {
+  background: rgba(10, 15, 31, 1);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 1000px) {
+  .physics-simulator .game-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .physics-simulator .game-sidebar {
+    order: 2;
+  }
+  
+  .physics-simulator .game-main {
+    order: 1;
+  }
+  
+  .physics-simulator .simulation-canvas {
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+    aspect-ratio: 7/5;
+  }
+  
+  .physics-simulator .control-buttons {
+    flex-direction: row;
+  }
+  
+  .physics-simulator .action-button {
+    flex: 1;
+  }
+}
+
+@media (max-width: 480px) {
+  .physics-simulator {
+    padding: 1rem;
+    padding-top: 70px;
+  }
+  
+  .physics-simulator .game-header h1 {
+    font-size: 1.5rem;
+  }
+}
