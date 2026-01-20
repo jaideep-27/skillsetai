@@ -54,9 +54,6 @@ function Navbar() {
 
           <div className={`nav-right ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
             <div className="nav-links">
-              <Link to="/courses" className={`nav-link ${isActive('/courses')}`}>
-                Courses
-              </Link>
               <Link to="/ai-tutors" className={`nav-link ${isActive('/ai-tutors')}`}>
                 AI Tutors
               </Link>
@@ -77,7 +74,7 @@ function Navbar() {
             </button>
           </div>
 
-          <button 
+          <button
             className="mobile-menu-btn"
             onClick={toggleMobileMenu}
             aria-label="Toggle mobile menu"
@@ -86,13 +83,13 @@ function Navbar() {
           </button>
         </div>
       </nav>
-      
-      <div 
+
+      <div
         className={`mobile-menu-overlay ${isMobileMenuOpen ? 'active' : ''}`}
         onClick={() => setIsMobileMenuOpen(false)}
       />
-      
-      <div 
+
+      <div
         className={`back-to-top ${showBackToTop ? 'visible' : ''}`}
         onClick={scrollToTop}
         aria-label="Scroll to top"
