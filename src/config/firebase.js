@@ -3,6 +3,13 @@ import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { getAnalytics, isSupported } from 'firebase/analytics';
 
+// DEBUG: Log what we're getting from env vars
+console.log('🔥 Firebase Env Vars Check:', {
+  hasApiKey: !!process.env.REACT_APP_FIREBASE_API_KEY,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  appIdPreview: process.env.REACT_APP_FIREBASE_APP_ID?.substring(0, 15) + '...',
+});
+
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
