@@ -251,13 +251,13 @@ function AITutors() {
         };
       }, {});
 
-      // Build a short summary for Gemini
+      // Build a short summary for Groq
       const answersSummary = Object.values(scores)
         .map(a => `Q: ${a.question}\nA: ${a.answer} (w=${a.weight})`)
         .join('\n');
 
       const result = await generateAssessmentPlan(tutorType, answersSummary);
-      
+
       if (!result.learningPathDescription) {
         throw new Error('Invalid response format from server');
       }
@@ -313,7 +313,7 @@ function AITutors() {
             ))}
           </ul>
         </div>
-        <button 
+        <button
           className="start-learning-btn"
           onClick={() => handleTutorSelect(tutor.type)}
         >
@@ -328,12 +328,37 @@ function AITutors() {
       return null;
     }
 
+    const questions = assessmentQuestions[selectedTutor.toLowerCase()];
+    const totalQuestions = questions.length;
+    const answeredQuestions = Object.keys(assessmentAnswers).length;
+    const progress = (answeredQuestions / totalQuestions) * 100;
+
     return (
       <div className="assessment-container">
         <h2>Learning Style Assessment</h2>
+        <div className="assessment-progress">
+          <div className="progress-info">
+            <span className="progress-text">
+              Progress: {answeredQuestions} of {totalQuestions} questions completed
+            </span>
+            <span className="progress-percentage">{Math.round(progress)}%</span>
+          </div>
+          <div className="progress-bar-container">
+            <div
+              className="progress-bar-fill"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+        </div>
         <div className="questions-container">
-          {assessmentQuestions[selectedTutor.toLowerCase()].map((q) => (
+          {questions.map((q, index) => (
             <div key={q.id} className="question-card">
+              <div className="question-header">
+                <span className="question-number">Question {index + 1}</span>
+                {assessmentAnswers[q.id] && (
+                  <span className="question-answered-badge">✓ Answered</span>
+                )}
+              </div>
               <p className="question-text">{q.question}</p>
               <div className="options-container">
                 {q.options.map((option) => (
@@ -343,6 +368,9 @@ function AITutors() {
                     onClick={() => handleAnswerSelect(q.id, option.id)}
                   >
                     {option.text}
+                    {assessmentAnswers[q.id] === option.id && (
+                      <span className="check-icon">✓</span>
+                    )}
                   </button>
                 ))}
               </div>
@@ -357,7 +385,7 @@ function AITutors() {
               <button
                 className="submit-btn"
                 onClick={handleAssessmentSubmit}
-                disabled={Object.keys(assessmentAnswers).length < assessmentQuestions[selectedTutor.toLowerCase()].length}
+                disabled={Object.keys(assessmentAnswers).length < questions.length}
               >
                 Create Learning Path
               </button>

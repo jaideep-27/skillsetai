@@ -3,15 +3,16 @@ import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { getAnalytics, isSupported } from 'firebase/analytics';
 
-// Firebase configuration
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCD1Ze35LZQzdsMV-qyw-ksFCE5Eg2MC-Q",
-  authDomain: "pocket-class-booking-system.firebaseapp.com",
-  projectId: "pocket-class-booking-system",
-  storageBucket: "pocket-class-booking-system.firebasestorage.app",
-  messagingSenderId: "259986748132",
-  appId: "1:259986748132:web:328e28d1bf84b1eb4db2f1",
-  measurementId: "G-3SCFEQL70P"
+  apiKey: "AIzaSyDuUsF_957PSzJp7S2fPhlyVo_Pe9zZ0Qg",
+  authDomain: "skillsetai.firebaseapp.com",
+  projectId: "skillsetai",
+  storageBucket: "skillsetai.firebasestorage.app",
+  messagingSenderId: "243822852731",
+  appId: "1:243822852731:web:f11df35b589316738d80de",
+  measurementId: "G-TL315TL0T2"
 };
 
 // Initialize Firebase

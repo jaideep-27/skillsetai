@@ -1,53 +1,92 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import Groq from 'groq-sdk';
 
 // Expect the key via CRA env (will be inlined at build time). Do NOT commit .env.
-const GEMINI_API_KEY = process.env.REACT_APP_GEMINI_API_KEY;
-const MODEL_NAME = 'gemini-2.0-flash-lite';
+const GROQ_API_KEY = process.env.REACT_APP_GROQ_API_KEY;
+const MODEL_NAME = 'llama-3.3-70b-versatile';
 
-let genAI;
+let groq;
 try {
-  if (GEMINI_API_KEY) {
-    genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+  if (GROQ_API_KEY) {
+    groq = new Groq({ apiKey: GROQ_API_KEY, dangerouslyAllowBrowser: true });
   }
 } catch (e) {
   // Safe-guard in case of bad key during build/dev
-  console.warn('Gemini init failed:', e?.message || e);
+  console.warn('Groq init failed:', e?.message || e);
 }
 
-const getModel = () => {
-  if (!genAI) throw new Error('Missing REACT_APP_GEMINI_API_KEY');
-  return genAI.getGenerativeModel({ model: MODEL_NAME });
+const getClient = () => {
+  if (!groq) throw new Error('Missing REACT_APP_GROQ_API_KEY');
+  return groq;
 };
 
-// Helper to build a tutor persona prompt
+// Helper to build a tutor persona prompt with modality-specific instructions
 const tutorPersona = (tutorType) => {
   const personas = {
-    visual:
-      'You are a visual learning tutor who explains concepts using imagery, diagrams, and visual metaphors. Prefer concise, structured, visual-friendly explanations.',
-    auditory:
-      'You are an auditory learning tutor who explains concepts through verbal descriptions and analogies. Prefer clear, well-paced explanations with examples.',
-    kinesthetic:
-      'You are a kinesthetic learning tutor who explains concepts through practical, hands-on examples and tasks. Prefer step-by-step activities.'
+    visual: `You are a visual learning tutor who explains concepts using imagery, diagrams, and visual metaphors.
+
+CRITICAL: For visual explanations, ALWAYS include Mermaid diagrams:
+- Use \`\`\`mermaid blocks for flowcharts, mind maps, and sequence diagrams
+- For concepts: use "flowchart TD" (top-down flowcharts)
+- For processes: use "sequenceDiagram"
+- For relationships: use "graph TD"
+
+Format code examples with clear visual structure and comments.
+Use emojis and visual markers to enhance clarity.
+Break down complex ideas into visual steps.`,
+
+    auditory: `You are an auditory learning tutor who explains concepts through clear verbal descriptions and analogies.
+
+CRITICAL: Optimize for spoken delivery:
+- Use conversational, natural language
+- Include verbal transitions ("first", "next", "finally")
+- Avoid complex formatting or code-heavy responses
+- Use analogies and stories for explanation
+- Structure explanations for listening comprehension
+- Keep sentences clear and not too long`,
+
+    kinesthetic: `You are a kinesthetic learning tutor who explains through hands-on practice and interactive coding.
+
+CRITICAL: Provide interactive experiences:
+- Always include code examples users can run and modify
+- Suggest specific modifications for them to try
+- Provide hands-on exercises with clear goals
+- Encourage experimentation: "Try changing X to see Y"
+- Give step-by-step coding challenges`
   };
   return personas[(tutorType || '').toLowerCase()] || personas.visual;
 };
 
 export const getAITutorResponse = async (tutorType, question) => {
-  const model = getModel();
-  const prompt = `Role: ${tutorPersona(tutorType)}\n\nUser question: ${question}\n\nRespond directly to the user. Keep it helpful and focused.`;
-  const result = await model.generateContent([{ text: prompt }]);
-  const text = result.response?.text?.() || result.response?.candidates?.[0]?.content?.parts?.map(p => p.text).join('\n');
-  if (!text) throw new Error('Empty response from Gemini');
+  const client = getClient();
+  const systemPrompt = `Role: ${tutorPersona(tutorType)}`;
+  const userPrompt = `User question: ${question}\n\nRespond directly to the user. Keep it helpful and focused.`;
+
+  const completion = await client.chat.completions.create({
+    messages: [
+      { role: 'system', content: systemPrompt },
+      { role: 'user', content: userPrompt }
+    ],
+    model: MODEL_NAME,
+  });
+
+  const text = completion.choices[0]?.message?.content;
+  if (!text) throw new Error('Empty response from Groq');
   return text;
 };
 
 // Generate a structured learning plan based on answers
 export const generateAssessmentPlan = async (tutorType, answersSummary) => {
-  const model = getModel();
+  const client = getClient();
   const prompt = `You are an expert in learning styles and educational psychology.\nStyle: ${tutorType}.\nAnswers summary:\n${answersSummary}\n\nCreate a JSON object with keys: learningPathDescription (string), strengths (array of strings), recommendations (array of strings), adaptiveLearningPath (array of strings). Keep items concise.`;
 
-  const result = await model.generateContent([{ text: prompt }]);
-  const raw = result.response?.text?.() || '';
+  const completion = await client.chat.completions.create({
+    messages: [
+      { role: 'user', content: prompt }
+    ],
+    model: MODEL_NAME,
+  });
+
+  const raw = completion.choices[0]?.message?.content || '';
 
   // Try to parse JSON from response; fallback to heuristic split
   try {

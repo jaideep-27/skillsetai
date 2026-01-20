@@ -1,0 +1,130 @@
+.mermaid-container {
+    margin: 20px 0;
+    background: rgba(15, 23, 42, 0.8);
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mermaid-diagram {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+    cursor: zoom-in;
+    transition: all 0.3s ease;
+    overflow: auto;
+    padding: 16px;
+    background: rgba(30, 41, 59, 0.5);
+    border-radius: 8px;
+}
+
+.mermaid-diagram.zoomed {
+    cursor: zoom-out;
+    transform: scale(1.2);
+    padding: 32px;
+}
+
+.mermaid-diagram svg {
+    max-width: 100%;
+    height: auto;
+}
+
+.mermaid-caption {
+    margin-top: 12px;
+    text-align: center;
+    color: #94a3b8;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.mermaid-hint {
+    margin-top: 8px;
+    text-align: center;
+    color: #64748b;
+    font-size: 12px;
+}
+
+.mermaid-error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: 8px;
+    padding: 16px;
+    margin: 20px 0;
+}
+
+.error-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.error-message {
+    color: #f87171;
+    margin-bottom: 12px;
+    line-height: 1.5;
+}
+
+.error-message strong {
+    color: #ef4444;
+}
+
+.error-details {
+    margin-top: 12px;
+}
+
+.error-details summary {
+    cursor: pointer;
+    color: #94a3b8;
+    font-size: 14px;
+    user-select: none;
+}
+
+.error-details summary:hover {
+    color: #cbd5e1;
+}
+
+.error-details pre {
+    margin-top: 8px;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+    overflow-x: auto;
+    color: #e2e8f0;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 12px;
+}
+
+/* Scrollbar styling */
+.mermaid-diagram::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.mermaid-diagram::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+.mermaid-diagram::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+.mermaid-diagram::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .mermaid-container {
+        padding: 12px;
+    }
+
+    .mermaid-diagram {
+        padding: 12px;
+    }
+
+    .mermaid-diagram.zoomed {
+        transform: scale(1.1);
+    }
+}

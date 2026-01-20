@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 // Process visual learning responses - use Stability AI generated images
 export const processVisualResponse = async (response, media) => {
   try {
@@ -19,7 +17,7 @@ export const processAuditoryResponse = async (response, media) => {
     if (media?.type === 'audio' && media.url) {
       // Create audio element for the generated audio
       const audio = new Audio(media.url);
-      
+
       return {
         text: response,
         media: {
@@ -32,11 +30,51 @@ export const processAuditoryResponse = async (response, media) => {
         }
       };
     }
-    
+
     // Fallback to browser's speech synthesis if no audio URL
     const utterance = new SpeechSynthesisUtterance(response);
-    utterance.rate = 1;
-    utterance.pitch = 1;
+
+    // Select a pleasant, natural-sounding voice
+    const voices = window.speechSynthesis.getVoices();
+    const preferredVoices = [
+      'Google US English',
+      'Microsoft Zira - English (United States)',
+      'Microsoft David - English (United States)',
+      'Samantha',
+      'Karen',
+      'Alex'
+    ];
+
+    // Find the first available preferred voice, or use a female voice as fallback
+    let selectedVoice = null;
+    for (const voiceName of preferredVoices) {
+      selectedVoice = voices.find(v => v.name === voiceName);
+      if (selectedVoice) break;
+    }
+
+    // If no preferred voice found, try to find any natural-sounding English voice
+    if (!selectedVoice) {
+      selectedVoice = voices.find(v =>
+        v.lang.startsWith('en') &&
+        (v.name.includes('Google') || v.name.includes('Microsoft') || v.name.includes('Natural'))
+      );
+    }
+
+    // If still no voice found, use any English female voice (generally more pleasant)
+    if (!selectedVoice) {
+      selectedVoice = voices.find(v =>
+        v.lang.startsWith('en') &&
+        (v.name.includes('Female') || v.name.toLowerCase().includes('female'))
+      );
+    }
+
+    if (selectedVoice) {
+      utterance.voice = selectedVoice;
+    }
+
+    // Adjust pitch and rate for a warmer, more natural sound
+    utterance.rate = 0.95;  // Slightly slower for clarity and warmth
+    utterance.pitch = 1.1;  // Slightly higher pitch for a friendlier tone
     utterance.volume = 1;
 
     return {

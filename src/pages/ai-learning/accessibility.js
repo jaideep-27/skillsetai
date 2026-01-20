@@ -7,7 +7,53 @@ export const useSpeechQueue = () => {
 
   const speak = (text, options = {}) => {
     const utterance = new SpeechSynthesisUtterance(text);
-    Object.assign(utterance, options);
+
+    // Select a natural-sounding voice if not specified in options
+    if (!options.voice) {
+      const voices = window.speechSynthesis.getVoices();
+      const preferredVoices = [
+        'Google US English',
+        'Microsoft Zira - English (United States)',
+        'Microsoft David - English (United States)',
+        'Samantha',
+        'Karen',
+        'Alex'
+      ];
+
+      let selectedVoice = null;
+      for (const voiceName of preferredVoices) {
+        selectedVoice = voices.find(v => v.name === voiceName);
+        if (selectedVoice) break;
+      }
+
+      if (!selectedVoice) {
+        selectedVoice = voices.find(v =>
+          v.lang.startsWith('en') &&
+          (v.name.includes('Google') || v.name.includes('Microsoft') || v.name.includes('Natural'))
+        );
+      }
+
+      if (!selectedVoice) {
+        selectedVoice = voices.find(v =>
+          v.lang.startsWith('en') &&
+          (v.name.includes('Female') || v.name.toLowerCase().includes('female'))
+        );
+      }
+
+      if (selectedVoice) {
+        options.voice = selectedVoice;
+      }
+    }
+
+    // Set default pleasant voice settings if not specified
+    const defaultOptions = {
+      rate: 0.95,
+      pitch: 1.1,
+      volume: 1,
+      ...options
+    };
+
+    Object.assign(utterance, defaultOptions);
     queue.current.push(utterance);
     processQueue();
   };
@@ -100,10 +146,10 @@ export const useAccessibilitySettings = (initialSettings = {}) => {
 
     // Apply settings to document
     document.documentElement.style.setProperty(
-      '--font-size-base', 
+      '--font-size-base',
       settings.largeText ? '18px' : '16px'
     );
-    
+
     document.documentElement.style.setProperty(
       '--contrast-multiplier',
       settings.highContrast ? '1.2' : '1'
@@ -127,11 +173,11 @@ export const useAccessibilitySettings = (initialSettings = {}) => {
 // Visual Processing Components
 export const AccessibleImage = ({ src, alt, description }) => {
   const { speak } = useSpeechQueue();
-  
+
   return (
     <div className="accessible-image">
       <img src={src} alt={alt} />
-      <button 
+      <button
         className="description-button"
         onClick={() => speak(description)}
         aria-label="Read image description"
@@ -147,11 +193,11 @@ export const AccessibleImage = ({ src, alt, description }) => {
 
 export const AccessibleDiagram = ({ data, description }) => {
   const { speak } = useSpeechQueue();
-  
+
   return (
     <div className="accessible-diagram">
       <div className="diagram-container" dangerouslySetInnerHTML={{ __html: data }} />
-      <button 
+      <button
         className="description-button"
         onClick={() => speak(description)}
         aria-label="Read diagram description"
@@ -173,8 +219,8 @@ export const useKeyboardNavigation = (refs) => {
         const currentIndex = refs.findIndex(ref => ref.current === document.activeElement);
         if (currentIndex !== -1) {
           e.preventDefault();
-          const nextIndex = e.shiftKey ? 
-            (currentIndex - 1 + refs.length) % refs.length : 
+          const nextIndex = e.shiftKey ?
+            (currentIndex - 1 + refs.length) % refs.length :
             (currentIndex + 1) % refs.length;
           refs[nextIndex].current?.focus();
         }
